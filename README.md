@@ -4,6 +4,8 @@
 
 ## 流程架构图
 
+![](images/jiagou.png)
+
 ## 步骤
 
 ### 1、制作Jenkins slave镜像
@@ -48,7 +50,7 @@
 
 ![](images/pipeline-bc-jenkins.png)
 
-### 5、配置githubwebhook
+### 5、配置github webhook
 
 为了启动自动构建，Jenkins需要在Hook URL中监听Github的Post请求。
 
