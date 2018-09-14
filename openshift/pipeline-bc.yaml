@@ -1,0 +1,109 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    pipeline.alpha.openshift.io/uses: '[{"name": "jenkins", "namespace": "", "kind": "DeploymentConfig"}]'
+  labels:
+    app: django-psql-example-pipeline
+    group: django-psql-example
+    name: django-psql-example-pipeline
+    template: django-psql-example
+  name: django-psql-example-pipeline
+  namespace: gxytest-jenkins
+spec:
+  nodeSelector: {}
+  output: {}
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    type: None
+  strategy:
+    jenkinsPipelineStrategy:
+      env:
+        - name: DEV_PROJECT
+          value: dev
+        - name: STAGE_PROJECT
+          value: stage
+        - name: WITH_SONAR
+          value: 'true'
+        - name: JENKINS_JNLP_URL
+          value: 'http://jenkins/computer/jenkins-python-3rq41/slave-agent.jnlp'
+        - name: JENKINS_URL
+          value: 'http://jenkins/'
+      jenkinsfile: |-
+
+         def version
+        pipeline {
+          agent {
+            label 'jenkins-python2'
+          }
+          stages {
+            stage('Test') {
+              steps {
+                git branch: 'master', url: 'https://github.com/jackeyge/django-ex.git'
+               // sh '''gitversion=`git rev-parse HEAD`
+               //     version=${gitversion:0:8}'''
+                       script {
+                def v = sh returnStdout: true ,script: "git rev-parse --short HEAD"
+                 version = v
+                  echo "${version}"
+                }
+                sh "nosetests tests/authentication_tests.py  --with-xunit --all-modules --traverse-namespace --with-coverage --cover-package=project1 --cover-inclusive --cover-xml"
+                sh "python -m coverage xml --include=project1*"
+                // sh "pylint -f parseable -d I0011,R0801 project1 | tee pylint.out" 
+              }
+            }
+            stage ('build'){
+                
+              steps {
+                 openshiftBuild(bldCfg: 'django-psql-example', showBuildLogs: 'true')
+            }    
+            }
+            stage ('deploy'){
+              steps {
+                openshiftDeploy(depCfg: 'django-psql-example')
+              }}
+              
+              stage ('check'){
+                  
+                  steps {
+                      retry(3){
+                      sh "sh check.sh"
+                  }
+                  }
+              }
+              
+              stage ('change IS tag'){
+              steps {
+                   echo "${version}"
+                 openshiftTag(alias: 'false', destStream: 'django-psql-example', destTag: "${version}", srcStream: 'django-psql-example', srcTag: 'latest')
+               //sh '''gitversion=`git rev-parse HEAD`
+               //     version=${gitversion:0:8}'''
+                  
+                /*script {
+                  openshift.withCluster() {
+                    openshift.tag("gxytest-jenkins/django-psql-example:latest", "gxytest-jenkins/django-psql-example:${version}")
+                  }
+                }*/
+              }
+                
+              }
+             }
+            
+          
+        post {
+        always {
+            junit 'nosetests.xml'
+            cobertura coberturaReportFile: 'coverage.xml'
+        }
+        }
+        }
+    type: JenkinsPipeline
+  triggers:
+    - github:
+        secret: password
+      type: GitHub
+    - generic:
+        secret: password
+      type: Generic
