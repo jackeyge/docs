@@ -18,7 +18,7 @@
 
 - 登录Jenkins，安装Cobertura Plugin插件，用来展示Python代码测试覆盖率报表
 
-- 在openshift导入Jenkins slave configmap [yaml文件](./file/jenkins/slave-base/openshift-jenkins-slave-pod-template.yaml),确保使用第一步创建的镜像
+- 在openshift导入Jenkins slave configmap [yaml文件](./file/jenkins/slave-base/openshift-jenkins-slave-pod-template.yml),确保使用第一步创建的镜像
 
   ![](images/jenkins-slave-cm.png)
 
