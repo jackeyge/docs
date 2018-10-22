@@ -3,7 +3,7 @@
 ## 前提
 默认已安装好es和kibana
 ## 1、安装zabbix
-可按照[zabbix官方文档](https://www.zabbix.com/download "zabbix官方文档")安装。
+可按照[zabbix官方文档](https://www.zabbix.com/download)安装。
 ## 2、在es创建zabbix的索引
 **依次创建uint、dbl、log、str、text索引**
 
@@ -98,3 +98,7 @@ $HISTORY['types'] = ['uint', 'dbl', 'str', 'text', 'log'];
 ![](images/kibana_discover.png)
 ## 6、查看zabbix数据显示是否正常
 ![](images/zabbix_chart.png)
+
+## 参考
+
+[微信公众号文章]: https://mp.weixin.qq.com/s?__biz=MzA3MzYwNjQ3NA==&mid=2651299457&idx=1&sn=98cbe96cbd5673a18ef63051095bbc78&chksm=84ff4aa4b388c3b21a524beec188924b49922b531942406025821db39d77cf27d5f7986b83b5&mpshare=1&scene=23&srcid=1012NwSMc9wNllStfcgTPL1v#rd
