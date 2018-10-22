@@ -43,7 +43,7 @@ curl -X PUT \
 ## 3、配置zabbix server
 
 
-- 配置zabbix server配置文件，添加
+- 配置zabbix server配置文件，添加如下内容，并重启服务。
 
 ```text/plain
 HistoryStorageURL=http://你的ip:9200
