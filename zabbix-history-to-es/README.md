@@ -64,7 +64,7 @@ $HISTORY['types'] = ['uint', 'dbl', 'str', 'text', 'log'];
 ![zabbix.conf.php](images/zabbix_php_config.png)
 
 ## 4、查看数据存储情况
-可以发现数据已存储到es里，zabbix的MySQL的数据库数据不再增加。
+可以发现数据已存储到es里，zabbix的MySQL的数据库相对应表的数据不再增加。
 ![](images/zabbix_es.png)
 ![](images/zabbix_mysql.png)
 ## 5、kibana添加index patterns
@@ -75,4 +75,4 @@ $HISTORY['types'] = ['uint', 'dbl', 'str', 'text', 'log'];
 
 ## 参考
 
-[]: https://mp.weixin.qq.com/s?__biz=MzA3MzYwNjQ3NA==&mid=2651299457&idx=1&sn=98cbe96cbd5673a18ef63051095bbc78&chksm=84ff4aa4b388c3b21a524beec188924b49922b531942406025821db39d77cf27d5f7986b83b5&mpshare=1&scene=23&srcid=1012NwSMc9wNllStfcgTPL1v#rd
+[微信公众号文章](https://mp.weixin.qq.com/s?__biz=MzA3MzYwNjQ3NA==&mid=2651299457&idx=1&sn=98cbe96cbd5673a18ef63051095bbc78&chksm=84ff4aa4b388c3b21a524beec188924b49922b531942406025821db39d77cf27d5f7986b83b5&mpshare=1&scene=23&srcid=1012NwSMc9wNllStfcgTPL1v#rd)
