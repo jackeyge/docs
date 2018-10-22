@@ -7,62 +7,36 @@
 ## 2、在es创建zabbix的索引
 **依次创建uint、dbl、log、str、text索引**
 
-示例创建uint索引
+示例: 创建uint索引
 
 
 ``` python
 curl -X PUT \
-
  http://**ES Host IP**:9200/uint \
-
  -H 'content-type:application/json' \
-
  -d '{
-
    "settings" : {
-
       "index" : {
-
          "number_of_replicas" : 1,
-
          "number_of_shards" : 5
-
       }
-
    },
-
    "mappings" : {
-
       "values" : {
-
          "properties" : {
-
             "itemid" : {
-
                "type" : "long"
-
             },
-
             "clock" : {
-
                "format" : "epoch_second",
-
                "type" : "date"
-
             },
-
             "value" : {
-
                "type" : "long"
-
             }
-
          }
-
       }
-
    }
-
 }'
 ```
 
