@@ -20,7 +20,6 @@ mysql>grant all on gerritdb.* to 'gerrituser'@'%' identified by 'gerritpass';
 ```
 useradd gerrit
 passwd gerrit
-
 ```
 - 配置Java环境
 ```
@@ -48,6 +47,7 @@ mkdir gerrit_site
 java jar gerrit-2.15.5.war init -d ~/gerrit_site   #安装
 ```
 安装过程可能会遇到数据库表无法创建，可用管理员用户登录数据库执行`set global explicit_defaults_for_timestamp=1;`操作，如果还不行，可手动执行sql创建。
+
 报错：
 ```
 Exception in thread "main" com.google.gwtorm.server.OrmException: Cannot apply SQL
@@ -223,6 +223,9 @@ ssh -p 29418 gerrit@127.0.0.1 replication start ***
 ```
 ## 参考
 > http://www.cnblogs.com/kevingrace/p/5624122.html
+> 
 > https://www.bbsmax.com/A/mo5kYQWzwR/
+> 
 > https://blog.csdn.net/tq08g2z/article/details/78627653
+> 
 > https://gerrit-documentation.storage.googleapis.com/Documentation/2.15.3/intro-how-gerrit-works.html
