@@ -222,9 +222,9 @@ ssh -p 29418 gerrit@127.0.0.1 gerrit plugin reload replication
 ssh -p 29418 gerrit@127.0.0.1 replication start ***
 ```
 ## 参考
-> http://www.cnblogs.com/kevingrace/p/5624122.html
+> [1]: http://www.cnblogs.com/kevingrace/p/5624122.html "cnblogs"
 > 
-> https://www.bbsmax.com/A/mo5kYQWzwR/
+> [2]: https://www.bbsmax.com/A/mo5kYQWzwR/
 > 
 > https://blog.csdn.net/tq08g2z/article/details/78627653
 > 
