@@ -12,17 +12,17 @@
 
 ## 环境准备
 - MySQL数据库-使用已有
-```
+```sql
 mysql>create database gerritdb CHARACTER SET utf8 COLLATE utf8_general_ci;
 mysql>grant all on gerritdb.* to 'gerrituser'@'%' identified by 'gerritpass';
 ```
 - 新建gerrit用户
-```
+```bash
 useradd gerrit
 passwd gerrit
 ```
 - 配置Java环境
-```
+```bash
 tar zxf jdk-8u181-linux-x64.tar.gz -C /usr/local/
 
 vim /etc/profile
@@ -41,7 +41,7 @@ source /etc/profile
 - 下载gerrit
   http://gerrit-releases.storage.googleapis.com/index.html
 ## 安装部署
-```
+```bash
 su - gerrit  #切换用户
 mkdir gerrit_site
 java jar gerrit-2.15.5.war init -d ~/gerrit_site   #安装
@@ -68,7 +68,7 @@ added_on TIMESTAMP NOT NULL
 
 ```
 登录MySQL操作：
-``` 
+```sql
 $ mysql -u root -p
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -91,7 +91,7 @@ Bye
 
 ```
 - 配置Nginx代理
-```
+```Script
 server {
         listen       10083;
         location / {
@@ -109,13 +109,13 @@ server {
 - 创建admin用户
 在Nginx服务器创建登录用户
 由于使用的认证类型是http，所以以后创建用户都需要手动在此创建。
-```
+```bash
  htpasswd -c /etc/nginx/conf.d/passwords gerrit
 ```
 ## 配置修改
 
 > vim review_site/etc/gerrit.config
-```
+```Script
 [gerrit]
 	basePath = git
 	serverId = 1e6c64ad-57fe-4dcb-8c7b-1b8c36c2da48
@@ -152,7 +152,7 @@ server {
 ```
 
 - 重启gerrit和Nginx‎
-```
+```bash
 review_site/bin/gerrit.sh restart
 
 nginx -s reload
@@ -171,14 +171,14 @@ nginx -s reload
 > gerrit replication插件可以实现gerrit与gitlib同步
 
 **安装：**
-```
+```bash
 unzip gerrit-2.15.5.war
 ‎cp WEB-INF/plugins/replication.jar ~/temp/
 ssh -p 29418 gerrit@127.0.0.1 gerrit plugin install -n replication.jar - <~/temp/replication.jar
 ssh -p 29418 gerrit@127.0.0.1 gerrit plugin ls
 ```
 **配置ssh config 示例**
-```
+```Script
 cd ~/.ssh/
 vim config
 Host gitlab.***.cn
@@ -188,7 +188,7 @@ Host gitlab.***.cn
         UserKnownHostsFile /dev/null
 ```
 **替换gitlab lubase(project owner) ssh key 示例**
-```
+```bash
 cd ~/.ssh/
 rm id_rsa
 rm id_rsa.pub
@@ -200,13 +200,13 @@ vim id_rsa.pub
  id_rsa.pub
 ```
 **加入gitlab pubkey到kown_hosts 示例**
-```
+```bash
 sh -c "ssh-keyscan -t rsa gitlab.***.cn >> ~/.ssh/known_hosts"
 sh -c "ssh-keygen -H -f ~/.ssh/known_hosts"
 ```
 **配置replication.config 示例**
 > vim gerrit_site/etc/replication.config
-```
+```Script
 [remote "gitlab.***.cn"]
         url = git@gitlab.***.cn:mobile/${name}.git
         push = +refs/heads/*:refs/heads/*
@@ -216,15 +216,15 @@ sh -c "ssh-keygen -H -f ~/.ssh/known_hosts"
         threads = 3
 ```
 **启动replication**
-```
+```bash
 bin/gerrit.sh restart
 ssh -p 29418 gerrit@127.0.0.1 gerrit plugin reload replication
 ssh -p 29418 gerrit@127.0.0.1 replication start ***
 ```
 ## 参考
-> [1]: http://www.cnblogs.com/kevingrace/p/5624122.html "cnblogs"
+> http://www.cnblogs.com/kevingrace/p/5624122.html 
 > 
-> [2]: https://www.bbsmax.com/A/mo5kYQWzwR/
+>  https://www.bbsmax.com/A/mo5kYQWzwR/
 > 
 > https://blog.csdn.net/tq08g2z/article/details/78627653
 > 
