@@ -170,14 +170,14 @@ nginx -s reload
 - replication插件
 > gerrit replication插件可以实现gerrit与gitlib同步
 
-安装过程：
+**安装：**
 ```
 unzip gerrit-2.15.5.war
 ‎cp WEB-INF/plugins/replication.jar ~/temp/
 ssh -p 29418 gerrit@127.0.0.1 gerrit plugin install -n replication.jar - <~/temp/replication.jar
 ssh -p 29418 gerrit@127.0.0.1 gerrit plugin ls
 ```
-配置ssh config 示例
+**配置ssh config 示例**
 ```
 cd ~/.ssh/
 vim config
@@ -187,7 +187,7 @@ Host gitlab.***.cn
         StrictHostKeyChecking no
         UserKnownHostsFile /dev/null
 ```
-替换gitlab lubase(project owner) ssh key 示例
+**替换gitlab lubase(project owner) ssh key 示例**
 ```
 cd ~/.ssh/
 rm id_rsa
@@ -199,12 +199,12 @@ vim id_rsa.pub
  id_rsa
  id_rsa.pub
 ```
-加入gitlab pubkey到kown_hosts 示例
+**加入gitlab pubkey到kown_hosts 示例**
 ```
 sh -c "ssh-keyscan -t rsa gitlab.***.cn >> ~/.ssh/known_hosts"
 sh -c "ssh-keygen -H -f ~/.ssh/known_hosts"
 ```
-配置replication.config 示例
+**配置replication.config 示例**
 > vim gerrit_site/etc/replication.config
 ```
 [remote "gitlab.***.cn"]
@@ -215,9 +215,14 @@ sh -c "ssh-keygen -H -f ~/.ssh/known_hosts"
         timtout = 30
         threads = 3
 ```
-启动replication
+**启动replication**
 ```
 bin/gerrit.sh restart
 ssh -p 29418 gerrit@127.0.0.1 gerrit plugin reload replication
 ssh -p 29418 gerrit@127.0.0.1 replication start ***
 ```
+## 参考
+> http://www.cnblogs.com/kevingrace/p/5624122.html
+> https://www.bbsmax.com/A/mo5kYQWzwR/
+> https://blog.csdn.net/tq08g2z/article/details/78627653
+> https://gerrit-documentation.storage.googleapis.com/Documentation/2.15.3/intro-how-gerrit-works.html
