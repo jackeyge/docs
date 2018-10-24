@@ -1,7 +1,7 @@
 # logstash 收集 journald 的日志
 ##安装插件
 - 安装ruby环境
-  ```bash
+```bash
 yum -y install ruby
 ```
 - 安装logstash-input-journald
@@ -45,16 +45,18 @@ output {
 - 查看输出
 ![](images/log.png)
 
-##其他操作
+## 其他操作
 
-###gem 更换源
+
+### gem 更换源
+
 ```bash
 gem sources  #列出默认源
 gem sources --remove https://rubygems.org/  #移除默认源
 gem sources -a https://mirrors.ustc.edu.cn/rubygems/  #添加科大源  https://gems.ruby-china.com
 ```
 
-###ruby升级
+### ruby升级
 
 ```bash
 #http://www.rvm.io/ 官网首页就可以看到 
@@ -72,6 +74,4 @@ rvm list known
 rvm install ruby-2.4.1
 #使用ruby版本默认 
 rvm use 2.4.1 default
-
-
 ```
