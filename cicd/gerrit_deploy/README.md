@@ -221,6 +221,10 @@ bin/gerrit.sh restart
 ssh -p 29418 gerrit@127.0.0.1 gerrit plugin reload replication
 ssh -p 29418 gerrit@127.0.0.1 replication start ***
 ```
+## 其他
+- [gerrit权限说明](./gerrit_access_controls.md)
+- [gerrit对接gitlab](./gerrit_connect_gitlab.md)
+- [gerrit对接jenkins](./gerrit_connect_jenkins.md)
 ## 参考
 > http://www.cnblogs.com/kevingrace/p/5624122.html 
 > 

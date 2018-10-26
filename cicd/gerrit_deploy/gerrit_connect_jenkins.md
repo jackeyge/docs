@@ -1,0 +1,1 @@
+# gerrit对接jenkins实现自动化测试
