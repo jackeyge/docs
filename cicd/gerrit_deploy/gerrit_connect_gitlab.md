@@ -1,5 +1,7 @@
 #gerrit对接gitlab操作记录
+
 ##1、Gitlab创建项目并把gerrit用户设置为管理员权限
+
 - **新建群组**
 ![](images/gitlab_add_new_group.png)
 ------
@@ -10,7 +12,9 @@
 ![](images/gitlab_add_new_project2.png)
 - **进入项目添加成员，gerrit用户给予maintainer权限，普通成员给予reporter权限**
 ![](images/gitlab_add_user.png)
+
 ##2、gerrit创建项目
+
 - **新建项目**
 ![](images/gerrit_create_new_project.png)
 ------
@@ -65,16 +69,25 @@ bin/gerrit.sh restart
 ssh -p 29418 gerrit@127.0.0.1 gerrit plugin reload replication
 ssh -p 29418 gerrit@127.0.0.1 replication start ***
 ```
+
 ##4、测试
+
 - **从gitlab拉取代码**
+
 ![](images/git_clone.png)
+
 - **修改代码，并通过git review命令提交**
+
 ![](images/git_review.png)
+
 - **此时代码提交到gerrit，进入人工审核**
+
 ![](images/git_gerrit.png)
 ---
 ![](images/git_gerrit2.png)
+
 - **审核通过后merge到gitlab**
+
 ![](images/git_submit1.png)
 ---
 ![](images/git_submit2.png)
