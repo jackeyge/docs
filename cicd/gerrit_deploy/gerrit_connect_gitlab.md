@@ -1,6 +1,6 @@
-#gerrit对接gitlab操作记录
+# gerrit对接gitlab操作记录
 
-##1、Gitlab创建项目并把gerrit用户设置为管理员权限
+## 1、Gitlab创建项目并把gerrit用户设置为管理员权限
 
 - **新建群组**
 ![](images/gitlab_add_new_group.png)
@@ -13,7 +13,7 @@
 - **进入项目添加成员，gerrit用户给予maintainer权限，普通成员给予reporter权限**
 ![](images/gitlab_add_user.png)
 
-##2、gerrit创建项目
+## 2、gerrit创建项目
 
 - **新建项目**
 ![](images/gerrit_create_new_project.png)
@@ -32,7 +32,7 @@ project=test.git     #项目名
 ![](images/gerrit_add_user.png)
 ------
 ![](images/gerrit_add_user2.png)
-##3、gerrit同步gitlab配置
+## 3、gerrit同步gitlab配置
 此配置依赖gerrit的replication插件
 - **配置ssh config**
 ```bash
@@ -70,7 +70,7 @@ ssh -p 29418 gerrit@127.0.0.1 gerrit plugin reload replication
 ssh -p 29418 gerrit@127.0.0.1 replication start ***
 ```
 
-##4、测试
+## 4、测试
 
 - **从gitlab拉取代码**
 
@@ -83,13 +83,13 @@ ssh -p 29418 gerrit@127.0.0.1 replication start ***
 - **此时代码提交到gerrit，进入人工审核**
 
 ![](images/git_gerrit.png)
----
+------
 ![](images/git_gerrit2.png)
 
 - **审核通过后merge到gitlab**
 
 ![](images/git_submit1.png)
----
+------
 ![](images/git_submit2.png)
 
 至此，gerrit对接gitlab流程测试结束。
