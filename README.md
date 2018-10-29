@@ -5,7 +5,7 @@
 ## 监控
 - [Zabbix历史数据history存储到 Elasticsearch](monitor/zabbix-history-to-es/README.md)
 ## 日志
-- [logstash journald插件安装](docs/log/logstash-input-journald.md)
+- [logstash journald插件安装](log/logstash-input-journald.md)
 ## linux
 
 ## python
