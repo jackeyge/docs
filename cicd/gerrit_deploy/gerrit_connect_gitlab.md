@@ -32,6 +32,19 @@ project=test.git     #项目名
 ![](images/gerrit_add_user.png)
 ------
 ![](images/gerrit_add_user2.png)
+
+## 把代码同步到gerrit
+
+```bash
+[gerrit@115]$ cd /home/gerrit/gerrit_site/git/            //即登陆到gerrit安装目录的git下
+[gerrit@115 git]$ rm -fr test-project1.git
+[gerrit@115 git]$ git clone --bare git@xxx.xxx.xxx.xxx:dev-group/test-project1.git             //创建并将远程gitlab上的这个项目内容发布到gerrit上
+[gerrit@115 git]$ ls
+All-Projects.git test-project1.git
+[gerrit@115 git]$ cd test-project1.git/ 
+[gerrit@115 git]$ ls                                 //即test-project1工程和gerrit里默认的All-Projects.git工程结构是一样的了
+branches config description HEAD hooks info objects packed-refs refs
+```
 ## 3、gerrit同步gitlab配置
 此配置依赖gerrit的replication插件
 - **配置ssh config**
