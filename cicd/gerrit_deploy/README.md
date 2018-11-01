@@ -215,8 +215,18 @@ sh -c "ssh-keygen -H -f ~/.ssh/known_hosts"
         timtout = 30
         threads = 3
 ```
+**启动replication**
+```bash
+bin/gerrit.sh restart
+ssh -p 29418 gerrit@127.0.0.1 gerrit plugin reload replication
+ssh -p 29418 gerrit@127.0.0.1 replication start ***
+```
 - download-commands插件
 此插件可在项目界面显示clone地址
+安装命令：
+```
+[gerrit@gerrit plugins]$ ssh -p 29418 gexingyong@127.0.0.1 gerrit plugin install -n download-commands.jar - <./download-commands.jar
+```
 ![](images/download_plugin.png)
 ```
 关于
@@ -338,12 +348,7 @@ Example git configuration on a project:
 
 By default `false`.
 ```
-**启动replication**
-```bash
-bin/gerrit.sh restart
-ssh -p 29418 gerrit@127.0.0.1 gerrit plugin reload replication
-ssh -p 29418 gerrit@127.0.0.1 replication start ***
-```
+
 ## 其他
 - [gerrit权限说明](./gerrit_access_controls.md)
 - [gerrit对接gitlab](./gerrit_connect_gitlab.md)
