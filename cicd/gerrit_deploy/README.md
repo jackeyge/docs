@@ -215,6 +215,129 @@ sh -c "ssh-keygen -H -f ~/.ssh/known_hosts"
         timtout = 30
         threads = 3
 ```
+- download-commands插件
+此插件可在项目界面显示clone地址
+![](images/download_plugin.png)
+```
+关于
+该插件定义了用于下载不同下载方案中的更改/项目的命令（用于通过不同的网络协议下载）。
+
+下载方案
+此插件定义了以下下载方案。请注意，必须通过配置启用某些下载方案。
+
+Anonymous Git：通过Git协议进行匿名下载的方案。
+
+Anonymous HTTP：通过HTTP协议进行匿名下载的方案。
+
+HTTP：通过HTTP协议进行身份验证下载的方案。
+
+SSH：通过SSH协议进行身份验证下载的方案。
+要求用户拥有用户名。
+
+REPO：使用Repo工具下载的方案。
+
+下载命令
+此插件定义了以下下载命令。请注意，必须通过配置启用某些下载命令。
+
+Git命令
+所有Git命令都适用于Git命令行。Git的命令可用于的方案Anonymous Git，Anonymous HTTP，HTTP和SSH。
+
+Checkout：用于获取和签出补丁集的命令。
+
+Cherry-Pick：获取补丁集的命令，并将其挑选到当前提交中。
+
+Format-Patch：用于获取修补程序集并将其提供给format-patch命令的命令。
+
+Pull：用于拉取补丁集的命令。
+
+回购命令
+该Repo命令仅适用于该REPO方案。
+
+Repo：使用Repo工具下载更改补丁集的命令。
+克隆命令
+此插件定义了以下克隆命令。
+
+Clone：标准git clone命令。
+
+Clone with commit-msg hook：标准git clone命令，其中包含将commit-msg挂接复制到新克隆的存储库的命令。
+通过配置，可以指定启用哪些下载方案和命令。
+
+配置必须gerrit.config在Gerrit服务器中完成。
+
+部分下载
+[download]
+  command = checkout
+  command = cherry_pick
+  command = pull
+  command = format_patch
+  scheme = ssh
+  scheme = http
+  scheme = anon_http
+  scheme = anon_git
+  scheme = repo_download
+下载部分配置允许的下载方法。
+
+download.command
+：应提供下载更改的命令。
+
+Multiple commands are supported:
+
+* `checkout`: Command to fetch and checkout the patch set.
+
+* `cherry_pick`: Command to fetch the patch set and cherry-pick
+it onto the current commit.
+
+* `pull`: Command to pull the patch set.
+
+* `format_patch`: Command to fetch the patch set and feed it
+into the `format-patch` command.
+
+If `download.command` is not specified, all download commands are
+offered.
+download.scheme
+：应用于下载更改的方案。
+
+Multiple schemes are supported:
+
+* `http`: Authenticated HTTP download is allowed.
+
+* `ssh`: Authenticated SSH download is allowed.
+
+* `anon_http`: Anonymous HTTP download is allowed.
+
+* `anon_git`: Anonymous Git download is allowed.  This is not
+default, it is also necessary to set [gerrit.canonicalGitUrl]
+(../../../Documentation/config-gerrit.html#gerrit.canonicalGitUrl)
+variable.
+
+* `repo_download`: Gerrit advertises patch set downloads with the
+`repo download` command, assuming that all projects managed by this
+instance are generally worked on with the repo multi-repository
+tool.  This is not default, as not all instances will deploy repo.
+
+If `download.scheme` is not specified, SSH, HTTP and Anonymous HTTP
+downloads are allowed.
+download.checkForHiddenChangeRefs
+：隐藏更改引用时是否应调整下载命令。
+
+Git has a configuration option to hide refs from the initial
+advertisement (`uploadpack.hideRefs`). This option can be used to
+hide the change refs from the client. As consequence fetching
+changes by change ref does not work anymore. However by setting
+`uploadpack.allowTipSHA1InWant` to `true` fetching changes by
+commit ID is possible. If `download.checkForHiddenChangeRefs` is
+set to `true` the git download commands use the commit ID instead
+of the change ref when a project is configured like this.
+
+Example git configuration on a project:
+
+    [uploadpack]
+      hideRefs = refs/changes/
+      hideRefs = refs/cache-automerge/
+      allowTipSHA1InWant = true
+
+By default `false`.
+```
 **启动replication**
 ```bash
 bin/gerrit.sh restart
